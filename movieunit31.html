@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+    <style>
+     *{
+         background-color: rgb(212, 134, 134);
+     }
+     img{
+         width:20%;
+         height:20%;
+     }
+     
+
+    </style>
+    <body>
+    <h1>Movie Search Engine I</h1>
+    <input type="text" id="Search" placeholder="Search Name"/>
+ <button onclick="MovieSearch()">search</button>
+
+ <div id="movies"></div>
+
+    </body>
+
+    
+<script>
+       
+       let container=document.getElementById("movies");
+   async function MovieSearch()
+   {
+       let Search=document.getElementById("Search").value;
+
+       
+       let res=await fetch(`http://www.omdbapi.com/?t=${Search}&apikey=c8bca29b`);
+        let movies= await res.json();
+        showMovies(movies);
+        console.log(movies);
+   }
+
+   function showMovies(rating)
+   {
+     //  container.innerHTML=null;
+     let div=document.createElement('div');
+       let name=document.createElement("p");
+         name.innerText=rating.Title;
+         let img=document.createElement("img");
+           img.src=rating.Poster;
+         let imdb_rating = document. createElement("p");
+         imdb_rating.innerText=rating.imdbRating;
+         let year=document.createElement("p");
+          year.innerText=rating.Year;
+         div.append(img,name,imdb_rating,year)
+         container.append(div);
+   }
+</script>
+</html>
